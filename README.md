@@ -2,6 +2,19 @@
 
 Declarative configuration management for Zen Browser. Define your complete browser setup—extensions, preferences, containers, and workspaces—in a single YAML file.
 
+## Browser Compatibility
+
+This tool is built specifically for [Zen Browser](https://zen-browser.app/), but the underlying approach works with any Firefox-based browser. The core mechanisms—`user.js` for preferences and `policies.json` for extensions/certificates—are standard Firefox features.
+
+**Adapting for other Firefox forks** (LibreWolf, Waterfox, Floorp, etc.):
+- Update the installation path in `profile.zen_path` (e.g., `/usr/lib/librewolf` instead of `/usr/lib/zen-browser`)
+- Update the profile directory (e.g., `~/.librewolf` instead of `~/.zen`)
+- Remove or adapt Zen-specific features (`zen_mods`, `zen.*` preferences)
+- Probably something else I haven't thought about yet
+
+The extension management, container setup, toolbar customization, and certificate import will (hopefully) work unchanged.
+
+
 ## Features
 
 - **Declarative Configuration**: Define everything in `config.yaml`
