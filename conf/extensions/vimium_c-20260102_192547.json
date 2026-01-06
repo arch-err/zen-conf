@@ -1,0 +1,32 @@
+{
+	"name": "Vimium C",
+	"@time": "1/2/2026, 7:25:47 PM",
+	"time": 1767378347022,
+	"environment": {
+		"extension": "2.12.3",
+		"platform": "linux",
+		"firefox": 146
+	},
+	"keyLayout": 2,
+	"keyMappings": [
+		"#!no-check",
+		"map J nextTab",
+		"map K previousTab",
+		"map <c-o> visitPreviousTab",
+		""
+	],
+	"linkHintCharacters": "asdfhjkl",
+	"searchUrl": "https://www.google.com/search?q=$s Unduck",
+	"userDefinedCss": [
+		".LH {",
+		"    border: 1px solid #000000;",
+		"    background-image: none !important;",
+		"    background-color: #ffffff !important;",
+		"    border-radius: 3px;",
+		"    color: #000000;",
+		"    font-family: monospace;",
+		"}",
+		""
+	],
+	"vimSync": true
+}

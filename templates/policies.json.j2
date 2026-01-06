@@ -1,0 +1,57 @@
+{
+  "policies": {
+    "ExtensionSettings": {
+      {% for ext in extensions.force_installed %}
+      "{{ ext.id }}": {
+        "installation_mode": "force_installed",
+        "install_url": "{{ ext.url }}"
+      }{{ "," if not loop.last else "" }}
+      {% endfor %}
+    }{% if containers %},
+    "Containers": {
+      "Default": [
+        {% for container in containers %}
+        {
+          "name": "{{ container.name }}",
+          "icon": "{{ container.icon }}",
+          "color": "{{ container.color }}"
+        }{{ "," if not loop.last else "" }}
+        {% endfor %}
+      ]
+    }
+    {% endif %}{% if default_search_engine %},
+    "SearchEngines": {
+      "Add": [
+        {
+          "Name": "{{ default_search_engine.name }}",
+          "URLTemplate": "{{ default_search_engine.url.replace('%s', '{searchTerms}') }}",
+          "Method": "GET"{% if default_search_engine.keyword %},
+          "Alias": "{{ default_search_engine.keyword }}"{% endif %}{% if default_search_engine.description %},
+          "Description": "{{ default_search_engine.description }}"{% endif %}
+        }
+      ],
+      "Default": "{{ default_search_engine.name }}"
+    }
+    {% endif %}{% if certificates %},
+    "Certificates": {
+      "Install": [
+        {% for cert in certificates %}
+        "{{ cert }}"{{ "," if not loop.last else "" }}
+        {% endfor %}
+      ]
+    }
+    {% endif %}{% if extension_settings %},
+    "3rdparty": {
+      "Extensions": {
+        {% if extension_settings.bitwarden %}
+        "{446900e4-71c2-419f-a6a7-df9c091e268b}": {
+          "environment": {
+            "base": "{{ extension_settings.bitwarden.server_url }}"
+          }
+        }{{ "," if False else "" }}
+        {% endif %}
+      }
+    }
+    {% endif %}
+  }
+}

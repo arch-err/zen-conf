@@ -1,0 +1,211 @@
+# Zen Browser Declarative Configuration
+# This file defines your complete browser setup
+
+# Profile settings
+profile:
+  name: default
+  # Installation type: auto-detect, or specify path
+  zen_path: auto  # or /usr/lib/zen-browser
+
+# Extensions to install via Firefox policies
+extensions:
+  # Extensions will be force-installed and cannot be removed by user
+  force_installed:
+    - id: uBlock0@raymondhill.net
+      name: uBlock Origin
+      url: https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi
+
+    - id: "@testpilot-containers"
+      name: Multi-Account Containers
+      url: https://addons.mozilla.org/firefox/downloads/latest/multi-account-containers/latest.xpi
+
+# Browser configuration (Firefox and Zen preferences)
+# All preferences use nested YAML format and are flattened to dot-notation
+config:
+  # Privacy settings
+  privacy:
+    trackingprotection:
+      enabled: true
+    donottrackheader:
+      enabled: true
+
+  # Startup
+  browser:
+    startup:
+      homepage: "about:blank"
+      page: 3  # Resume previous session
+    sessionstore:
+      interval: 15000  # Save session every 15s
+
+  # Enable custom CSS (userChrome.css)
+  toolkit:
+    legacyUserProfileCustomizations:
+      stylesheets: true
+    telemetry:
+      enabled: false
+
+  # Disable telemetry
+  datareporting:
+    healthreport:
+      uploadEnabled: false
+    policy:
+      dataSubmissionEnabled: false
+
+  # Zen-specific preferences (use zen.* prefix)
+  zen:
+    view:
+      # Simple boolean preference
+      compact: true  # Creates: zen.view.compact: true
+
+      # OR use "enabled" for preferences with sub-options:
+      # compact:
+      #   enabled: true              # Creates: zen.view.compact: true
+      #   enable-at-startup: true    # Creates: zen.view.compact.enable-at-startup: true
+      #   hide-toolbar: false        # Creates: zen.view.compact.hide-toolbar: false
+
+    tabs:
+      vertical: true  # Creates: zen.tabs.vertical: true
+
+    # Glance feature - preview websites on top of your current tab
+    glance:
+      enabled: false  # Only "enabled" → Creates: zen.glance.enabled: false
+      # If you add other keys:
+      # enable-contextmenu-search: false  # Would also create zen.glance.enable-contextmenu-search
+      # Then "enabled" would instead create zen.glance: false (special behavior)
+
+# Toolbar customization
+# Declaratively configure toolbar layout, button positions, etc.
+# To get your current toolbar state:
+#   1. Customize toolbar manually in Zen Browser
+#   2. Go to about:config
+#   3. Search for: browser.uiCustomization.state
+#   4. Copy the JSON value and paste it here
+#
+# Example (simplified - yours will be much longer):
+# toolbar:
+#   # Paste your browser.uiCustomization.state JSON here
+#   placements:
+#     nav-bar:
+#       - back-button
+#       - forward-button
+#       - urlbar-container
+#     TabsToolbar:
+#       - tabbrowser-tabs
+#
+# Or use the helper script (future feature):
+#   zen-apply --export-toolbar > toolbar.json
+
+# Note: The "enabled" key has special behavior:
+# - If "enabled" is the ONLY key in a dict: nests normally (e.g., zen.glance.enabled)
+# - If "enabled" has sibling keys: its value becomes the parent preference value,
+#   while siblings nest normally (e.g., zen.view.compact + zen.view.compact.enable-at-startup)
+#
+# Legacy format (still supported for backward compatibility):
+# preferences:
+#   privacy.trackingprotection.enabled: true
+# zen:
+#   view:
+#     compact: true
+
+# Zen Mods - CSS-based themes and customizations
+# Browse available mods at: https://zen-browser.app/mods/
+zen_mods:
+  # Specify mods by UUID (from theme store) or name
+  - id: 906c6915-5677-48ff-9bfc-096a02a72379
+    name: Floating Status Bar
+
+  # You can also specify by name only (will search theme store)
+  - name: Some Other Mod
+
+  # Some mods support preferences for customization
+  # - name: Configurable Mod
+  #   preferences:
+  #     mod.setting.option1: true
+  #     mod.setting.option2: "value"
+
+# Certificate import directory
+# Certificates (.crt or .pem files) in this directory will be imported as trusted CA certificates
+# Path is relative to this config file, or absolute
+certificates_dir: certificates  # Default: ./certificates
+
+# Extension-specific settings (managed via Firefox policies)
+extension_settings:
+  # Bitwarden password manager configuration
+  bitwarden:
+    # Self-hosted server URL (include https://)
+    server_url: "https://vault.example.com"
+    # Note: Username must be entered manually during first login
+    # Pre-filling username is not currently supported via policies
+
+# Default search engine (set via Firefox policies)
+# This sets the search engine used when searching from the address bar
+# The %s in the URL will be replaced with the search term
+default_search_engine:
+  name: DuckDuckGo
+  keyword: ddg
+  url: https://duckduckgo.com/?q=%s
+  description: Privacy-focused search engine
+
+# Note: If you want additional custom search engines (not as default),
+# you can add bookmark keywords manually or via the search_engines section
+# Example format for bookmark keywords:
+# search_engines:
+#   - keyword: gh
+#     name: GitHub Search
+#     url: https://github.com/search?q=%s
+
+# Container definitions
+containers:
+  - name: Personal
+    color: blue
+    icon: fingerprint
+
+  - name: Work
+    color: orange
+    icon: briefcase
+
+  - name: Shopping
+    color: pink
+    icon: cart
+
+  - name: Banking
+    color: green
+    icon: dollar
+
+# Multi-Account Containers extension configuration
+# Domain-to-container assignments
+container_assignments:
+  # Personal sites
+  - domain: gmail.com
+    container: Personal
+
+  - domain: reddit.com
+    container: Personal
+
+  # Work sites
+  - domain: github.com
+    container: Work
+
+  - domain: slack.com
+    container: Work
+
+  # Shopping
+  - domain: amazon.com
+    container: Shopping
+
+  - domain: ebay.com
+    container: Shopping
+
+# Zen Workspaces configuration
+workspaces:
+  - name: Personal
+    icon: home
+    default_container: Personal
+
+  - name: Work
+    icon: briefcase
+    default_container: Work
+
+  - name: Shopping
+    icon: cart
+    default_container: Shopping

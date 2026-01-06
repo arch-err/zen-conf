@@ -1,0 +1,237 @@
+#!/usr/bin/env uv run zen-apply
+# Zen Browser Declarative Configuration
+# This file defines your complete browser setup
+
+# Profile settings
+profile:
+  name: main
+  # Installation type: auto-detect, or specify path
+  zen_path: auto  # or /usr/lib/zen-browser
+
+# Extensions to install via Firefox policies
+extensions:
+  # WARNING: Extensions will be force-installed and cannot be removed by user
+  force_installed:
+    - id: uBlock0@raymondhill.net
+      name: uBlock Origin
+      url: https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi
+
+    - id: "{446900e4-71c2-419f-a6a7-df9c091e268b}"
+      name: Bitwarden Password Manager
+      url: https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi
+
+    - id: vimium-c@gdh1995.cn
+      name: Vimium C
+      url: https://addons.mozilla.org/firefox/downloads/latest/vimium-c/latest.xpi
+
+    - id: addon@darkreader.org
+      name: Dark Reader
+      url: https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi
+
+    - id: css-exfil-protection@jake.archibald
+      name: CSS Exfil Protection
+      url: https://addons.mozilla.org/firefox/downloads/latest/css-exfil-protection/latest.xpi
+
+    - id: foxyproxy@eric.h.jung
+      name: FoxyProxy Standard
+      url: https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/latest.xpi
+
+    - id: "{db9a72da-7bc5-4805-bcea-da3cb1a15316}"
+      name: Copy Selection as Markdown
+      url: https://addons.mozilla.org/firefox/downloads/latest/copy-selection-as-markdown/latest.xpi
+
+    - id: "{800215d6-eff0-4a62-9268-09857c048030}"
+      name: Containers Helper
+      url: https://addons.mozilla.org/firefox/downloads/latest/containers-helper/latest.xpi
+
+    - id: CanvasBlocker@kkapsner.de
+      name: CanvasBlocker
+      url: https://addons.mozilla.org/firefox/downloads/latest/canvasblocker/latest.xpi
+
+    - id: clearcache@mihmail.biz
+      name: Clear Cache
+      url: https://addons.mozilla.org/firefox/downloads/latest/clearcache/latest.xpi
+
+    - id: "{ac87cfd8-47b1-4401-b32e-f033af5ed96b}"
+      name: Get cookies.txt LOCALLY
+      url: https://addons.mozilla.org/firefox/downloads/latest/get-cookies-txt-locally/latest.xpi
+
+    - id: videospeed@rr-
+      name: Video Speed Controller
+      url: https://addons.mozilla.org/firefox/downloads/latest/videospeed/latest.xpi
+
+    - id: "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}"
+      name: User-Agent Switcher and Manager
+      url: https://addons.mozilla.org/firefox/downloads/latest/user-agent-string-switcher/latest.xpi
+
+# Browser configuration (Firefox and Zen preferences)
+config:
+  privacy:
+    trackingprotection.enabled: true
+    donottrackheader.enabled: true
+
+  browser:
+    startup:
+      homepage: "about:blank"
+      page: 3  # Resume previous session
+    aboutConfig.showWarning: false
+    sessionstore.interval: 15000  # Save session every 15s
+    tabs.allow_transparent_browser: true
+
+  # Enable custom CSS (userChrome.css)
+  toolkit:
+    legacyUserProfileCustomizations.stylesheets: true
+    telemetry.enabled: false
+
+  # Disable telemetry
+  datareporting:
+    healthreport.uploadEnabled: false
+    policy.dataSubmissionEnabled: false
+
+  # Zen-specific preferences
+  zen:
+    view:
+      compact:
+        enabled: true
+        enable-at-startup: true
+        hide-toolbar: true
+      use-single-toolbar: false
+      grey-out-inactive-windows: false
+
+    tabs.vertical: true
+    glance.enabled: false
+    welcome-screen.seen: true
+    widget.linux.transparency: true
+
+  # Config for the "Zen Context Menu" mod
+  uc:
+    hidecontext:
+      askchatbot: true
+      bookmark: true
+      checkspelling: true
+      copylink: true
+      image: true
+      printselection: true
+      reloadtab: true
+      savelink: true
+      searchinpriv: true
+      selectalltabs: true
+      selectalltext: true
+      sendtodevice: true
+      separators: true
+    fixcontext:
+      ergonomicsfortabs: true
+
+
+# Toolbar customization
+# This is the browser.uiCustomization.state preference converted to YAML
+# The script will automatically convert this back to JSON when generating user.js
+toolbar:
+  placements:
+    widget-overflow-fixed-list: []
+    unified-extensions-area:
+    - ublock0_raymondhill_net-browser-action
+    - _ac87cfd8-47b1-4401-b32e-f033af5ed96b_-browser-action
+    - _db9a72da-7bc5-4805-bcea-da3cb1a15316_-browser-action
+    - _800215d6-eff0-4a62-9268-09857c048030_-browser-action
+    - vimium-c_gdh1995_cn-browser-action
+    - addon_darkreader_org-browser-action
+    - foxyproxy_eric_h_jung-browser-action
+    - canvasblocker_kkapsner_de-browser-action
+    - _a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7_-browser-action
+    - _446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action
+    nav-bar:
+    - customizableui-special-spring5
+    - back-button
+    - vertical-spacer
+    - urlbar-container
+    - forward-button
+    - customizableui-special-spring6
+    - unified-extensions-button
+    toolbar-menubar:
+    - menubar-items
+    TabsToolbar:
+    - tabbrowser-tabs
+    vertical-tabs: []
+    PersonalToolbar:
+    - personal-bookmarks
+    zen-sidebar-top-buttons: []
+    zen-sidebar-foot-buttons:
+    - downloads-button
+    - zen-workspaces-button
+    - zen-toggle-compact-mode
+    - screenshot-button
+    - developer-button
+    - zen-create-new-button
+  seen:
+  - developer-button
+  - _ac87cfd8-47b1-4401-b32e-f033af5ed96b_-browser-action
+  - _db9a72da-7bc5-4805-bcea-da3cb1a15316_-browser-action
+  - _800215d6-eff0-4a62-9268-09857c048030_-browser-action
+  - vimium-c_gdh1995_cn-browser-action
+  - addon_darkreader_org-browser-action
+  - foxyproxy_eric_h_jung-browser-action
+  - ublock0_raymondhill_net-browser-action
+  - canvasblocker_kkapsner_de-browser-action
+  - _a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7_-browser-action
+  - _446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action
+  - screenshot-button
+  dirtyAreaCache:
+  - nav-bar
+  - vertical-tabs
+  - zen-sidebar-foot-buttons
+  - unified-extensions-area
+  - zen-sidebar-top-buttons
+  currentVersion: 23
+  newElementCount: 6
+
+# Zen Mods (CSS-based themes and customizations)
+# Mods are installed from the Zen theme store: https://zen-browser.app/mods/
+zen_mods:
+  - name: Floating Status Bar
+  - name: Pimp your PiP
+  - name: No Top Sites
+  - name: Trackpad Animation
+  - name: Extensions List
+  - name: Zen Back Forward
+  - name: NoHighlightSplit
+  - name: Zen Context Menu
+
+# Extension-specific settings
+extension_settings:
+  bitwarden:
+    server_url: "https://vault.home"
+
+# Default search engine (set via Firefox policies)
+# This will be the search engine used when searching from the address bar
+default_search_engine:
+  name: "Arch-err Unduck"
+  keyword: "unduck"
+  url: "https://arch-err.github.io/unduck?q=%s"
+  description: "Arch-err's custom search engine"
+
+# Container definitions
+containers:
+  - name: Main
+    color: teal
+    icon: fingerprint
+
+  - name: Work
+    color: orange
+    icon: briefcase
+
+  - name: Trash
+    color: white
+    icon: circle
+
+# Zen Workspaces configuration
+workspaces:
+  - name: Main
+    icon: 3x3 grid
+    default_container: Main
+    essentials:
+      - https://proton.me/mail
+
+  - name: Work
+    icon: briefcase
+    default_container: Work
