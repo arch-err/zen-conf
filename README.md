@@ -239,7 +239,3 @@ cat ~/.zen/<profile-name>.default/user.js
 ```
 
 Restart Zen Browser after applying configuration.
-
-## License
-
-MIT
